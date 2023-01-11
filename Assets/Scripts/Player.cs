@@ -8,53 +8,52 @@ using UnityEngine.Events;
 public class Player : MonoBehaviour
 {
     [SerializeField] private int _maxHelth;
-    [SerializeField] private UnityEvent _healthChanged;
+    
+    private static int AnimationHealing = Animator.StringToHash("Healing");
+    private static int AnimationTakeDamage = Animator.StringToHash("TakeDamage");
+    private static int AnimationIsDie = Animator.StringToHash("isDie");
+    private static int AnimationDeth = Animator.StringToHash("Deth");
 
+    private UnityEvent _healthChanged = new UnityEvent();
     private int _currentHelth;
     private Animator _animator;
 
     private void Awake()
+    {        
+        TryGetComponent<Animator>(out _animator);
+        _currentHelth = _maxHelth;        
+    }
+
+    private void OnValidate()
     {
         if (_maxHelth == 0)
             _maxHelth = 250;
-
-        TryGetComponent<Animator>(out _animator);
-        _currentHelth = _maxHelth;
     }
 
     public bool Deth { get; private set; }
 
-    public void ChangeHelth(int count)
+    public event UnityAction HealthChanged
     {
-        if(count == 0)        
-            return;    
-        if(count>0)
-            TakeHeal(count);
-        else
-            TakeDamage(count);
+        add => _healthChanged.AddListener(value);
+        remove => _healthChanged.RemoveListener(value);
     }
 
-    public float GetCurrentHelthCoefficient()
+    public void TakeDamage(int damage)
     {
-        return (float)_currentHelth / (float)_maxHelth;
-    }
-
-    private void TakeDamage(int damage)
-    {
-        if (Deth)
+        if (Deth || damage <= 0) 
             return;
 
-        _currentHelth += damage;
+        _currentHelth -= damage;
 
         if (IsDethChange() == false)
-            _animator.SetTrigger("TakeDamage");
+            _animator.SetTrigger(AnimationTakeDamage);
 
         _healthChanged.Invoke();
     }
 
-    private void TakeHeal(int heal)
+    public void TakeHeal(int heal)
     {
-        if (_currentHelth == _maxHelth)
+        if (_currentHelth == _maxHelth || heal <= 0)
             return;
 
         _currentHelth += heal;
@@ -63,9 +62,13 @@ public class Player : MonoBehaviour
             _currentHelth = _maxHelth;
 
         if (IsDethChange() == false)
-            _animator.SetTrigger("Healing");
+            _animator.SetTrigger(AnimationHealing);
 
         _healthChanged.Invoke();
+    }
+    public float GetCurrentHelthCoefficient()
+    {
+        return (float)_currentHelth / (float)_maxHelth;
     }
 
     private bool IsDethChange()
@@ -73,15 +76,15 @@ public class Player : MonoBehaviour
         if(Deth && _currentHelth > 0)
         {
             Deth = false;
-            _animator.SetBool("isDie", false);
+            _animator.SetBool(AnimationIsDie, false);
             return true;
         }
         if(Deth == false && _currentHelth <= 0)
         {
             Deth = true;
             _currentHelth = 0;
-            _animator.SetBool("isDie", true);
-            _animator.SetTrigger("Deth");
+            _animator.SetBool(AnimationIsDie, true);
+            _animator.SetTrigger(AnimationDeth);
             return true;
         }
 

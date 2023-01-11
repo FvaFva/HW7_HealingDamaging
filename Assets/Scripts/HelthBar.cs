@@ -17,9 +17,22 @@ public class HelthBar : MonoBehaviour
     private void Awake()
     {
         TryGetComponent<Slider>(out _slider);
+    }
 
+    private void OnValidate()
+    {
         if (_smoothnessFactor == 0)
             _smoothnessFactor = 1;
+    }
+
+    private void OnEnable()
+    {       
+        _player.HealthChanged += UpdatePlayerHelthInfo;
+    }
+
+    private void OnDisable()
+    {
+        _player.HealthChanged -= UpdatePlayerHelthInfo;
     }
 
     public void UpdatePlayerHelthInfo()

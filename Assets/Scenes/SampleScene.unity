@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa351fd309d2f604199c98a1a049b6c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHelth: 0
+  _maxHelth: 250
   _healthChanged:
     m_PersistentCalls:
       m_Calls:
@@ -198,7 +198,6 @@ GameObject:
   - component: {fileID: 315908316}
   - component: {fileID: 315908315}
   - component: {fileID: 315908314}
-  - component: {fileID: 315908317}
   m_Layer: 5
   m_Name: Attack
   m_TagString: Untagged
@@ -270,14 +269,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 315908317}
-        m_TargetAssemblyTypeName: PlayerHelthChanger, Assembly-CSharp
-        m_MethodName: Change
-        m_Mode: 1
+      - m_Target: {fileID: 295634462}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: TakeDamage
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 20
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -320,20 +319,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 315908312}
   m_CullTransparentMesh: 1
---- !u!114 &315908317
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 315908312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20d408c273ba7be41bc3c816502bc532, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _player: {fileID: 295634462}
-  _countHelthChange: -20
 --- !u!1 &352848957
 GameObject:
   m_ObjectHideFlags: 0
@@ -520,7 +505,6 @@ GameObject:
   - component: {fileID: 658780068}
   - component: {fileID: 658780067}
   - component: {fileID: 658780066}
-  - component: {fileID: 658780069}
   m_Layer: 5
   m_Name: Heal
   m_TagString: Untagged
@@ -592,14 +576,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 658780069}
-        m_TargetAssemblyTypeName: PlayerHelthChanger, Assembly-CSharp
-        m_MethodName: Change
-        m_Mode: 1
+      - m_Target: {fileID: 295634462}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: TakeHeal
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 20
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -642,20 +626,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 658780064}
   m_CullTransparentMesh: 1
---- !u!114 &658780069
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 658780064}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20d408c273ba7be41bc3c816502bc532, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _player: {fileID: 295634462}
-  _countHelthChange: 20
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
