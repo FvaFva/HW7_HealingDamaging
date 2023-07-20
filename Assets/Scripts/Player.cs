@@ -7,15 +7,15 @@ using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private int _maxHelth;
+    [SerializeField] private int _maxHealth;
     
     private static int AnimationHealing = Animator.StringToHash("Healing");
     private static int AnimationTakeDamage = Animator.StringToHash("TakeDamage");
     private static int AnimationIsDie = Animator.StringToHash("isDie");
-    private static int AnimationDeth = Animator.StringToHash("Deth");
+    private static int AnimationDeath = Animator.StringToHash("Death");
 
     private UnityEvent _healthChanged = new UnityEvent();
-    private int _currentHelth;
+    private int _currentHealth;
     private Animator _animator;
 
     private void Awake()
@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
             _maxHelth = 250;
     }
 
-    public bool Deth { get; private set; }
+    public bool Death { get; private set; }
 
     public event UnityAction HealthChanged
     {
@@ -66,12 +66,12 @@ public class Player : MonoBehaviour
 
         _healthChanged.Invoke();
     }
-    public float GetCurrentHelthCoefficient()
+    public float GetCurrentHealthCoefficient()
     {
         return (float)_currentHelth / (float)_maxHelth;
     }
 
-    private bool IsDethChange()
+    private bool IsDeathChange()
     {
         if(Deth && _currentHelth > 0)
         {
