@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 [RequireComponent(typeof(Slider))]
 
-public class HelthBar : MonoBehaviour
+public class HealthBar : MonoBehaviour
 {
     [SerializeField] private Player _player;
     [SerializeField] private float _smoothnessFactor;
@@ -27,15 +27,15 @@ public class HelthBar : MonoBehaviour
 
     private void OnEnable()
     {       
-        _player.HealthChanged += UpdatePlayerHelthInfo;
+        _player.HealthChanged += UpdatePlayerHealthInfo;
     }
 
     private void OnDisable()
     {
-        _player.HealthChanged -= UpdatePlayerHelthInfo;
+        _player.HealthChanged -= UpdatePlayerHealthInfo;
     }
 
-    public void UpdatePlayerHelthInfo()
+    public void UpdatePlayerHealthInfo()
     {
         _targetValue = _player.GetCurrentHelthCoefficient();
 
